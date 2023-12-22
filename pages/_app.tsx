@@ -6,9 +6,7 @@ import { Helmet } from 'react-helmet';
 
 export default function App({ Component, pageProps }: AppProps) {
     return <div className='main'>
-        <Helmet>
-            <html lang="en" />
-        </Helmet>
+        <Helmet htmlAttributes={{ lang: "en" }} />
         <Head>
             <title>Pinea Colours</title>
             <meta name="description" content="Shows a preview of a hex colour, and converts it" />
