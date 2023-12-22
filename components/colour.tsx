@@ -133,6 +133,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
                 onChange={(e) => updateColour(e.target.value)}
                 maxLength={7}
                 spellCheck={false}
+                aria-label='Colour input'
                 style={adaptiveText}
             />
             <div className={Styles.alternatives}>
