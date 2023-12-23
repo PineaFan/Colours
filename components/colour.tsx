@@ -155,7 +155,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
                 }
             </div>
         </div>
-        <div className={Styles.footer} style={{backgroundColor: "#" + colour}}>
+        <div className={Styles.footer}>
             <a href="https://pinea.dev" className={Styles.footerIcon}><Image src="/pinea.svg" width={32} height={30} alt="" />PineaFan</a>
         </div>
     </div>
