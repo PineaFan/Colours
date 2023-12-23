@@ -97,10 +97,17 @@ function AlternativeDisplay(props: {value: string, render: string, copyable: boo
 const alternativeNames = {hex: "HEX", rgb: "RGB", rgbInt: "RGB Int", hsv: "HSV", cmyk: "CMYK"}
 
 export default function ColourPage(props: React.PropsWithChildren<{
-    currentColour?: string;
+    // Let the page use its own state for the colour
+    currentColour?: string
+    setCurrentColour?: (colour: string) => void
 }>) {
     const toSet = toValidColour(props.currentColour || "F27878")
-    const [colour, setColour] = React.useState(toSet)
+    let colour: string, setColour: (colour: string) => void;
+    if (props.setCurrentColour) {
+        [colour, setColour] = [props.currentColour || toSet, props.setCurrentColour]
+    } else {
+        [colour, setColour] = React.useState(toSet)
+    }
     const [alternativeFormats, setAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
     const [typedColour, setTypedColour] = React.useState(colour)
 
@@ -122,9 +129,11 @@ export default function ColourPage(props: React.PropsWithChildren<{
     const adaptiveText = {color: textColour}
 
     return <div className={Styles.container}>
-        <div className={Styles.colour} style={{backgroundColor: "#" + colour}}>
 
-            <meta name="theme-color" content={"#" + colour} />
+        <meta name="theme-color" content={"#" + colour} />
+        <meta name="description" content={`#${colour} | RGB: ${alternativeFormats.rgb}`} />
+
+        <div className={Styles.colour} style={{backgroundColor: "#" + colour}}>
 
             <input
                 className={Styles.inputObject}
