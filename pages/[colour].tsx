@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import Colour from "../components/colour";
+import Colour, { validFormats } from "../components/colour";
 import { useEffect } from 'react';
 
 export default function Page({ colour }: { colour: string }) {
@@ -8,7 +8,10 @@ export default function Page({ colour }: { colour: string }) {
     useEffect(() => {
         if (!router.isReady || colour === undefined) return;
     }, [router.isReady, colour]);
-
+    // Check if the colour is in validFormats
+    if ((validFormats as string[]).includes(colour)) {
+        return <Colour currentColour={"F27878"} primaryFormat={colour as typeof validFormats[0] } />
+    }
     return <Colour currentColour={colour} />
 }
 

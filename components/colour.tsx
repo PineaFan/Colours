@@ -95,11 +95,15 @@ function AlternativeDisplay(props: {value: string, render: string, copyable: boo
 }
 
 const alternativeNames = {hex: "HEX", rgb: "RGB", rgbInt: "RGB Int", hsv: "HSV", cmyk: "CMYK"}
+const validFormats = Object.keys(alternativeNames) as (keyof typeof alternativeNames)[]
+// Export this so that the page can use it
+export { validFormats }
 
 export default function ColourPage(props: React.PropsWithChildren<{
     // Let the page use its own state for the colour
     currentColour?: string
-    setCurrentColour?: (colour: string) => void
+    setCurrentColour?: (colour: string) => void,
+    primaryFormat?: keyof typeof alternativeNames | "hex"
 }>) {
     const toSet = toValidColour(props.currentColour || "F27878")
     let colour: string, setColour: (colour: string) => void;
@@ -157,6 +161,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
         </div>
         <div className={Styles.footer}>
             <a href="https://pinea.dev" className={Styles.footerIcon}><Image src="/pinea.svg" width={32} height={30} alt="" />PineaFan</a>
+            <a href="/about" className={Styles.footerIcon}>About</a>
         </div>
     </div>
 }

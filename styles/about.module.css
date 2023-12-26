@@ -1,0 +1,48 @@
+.container {
+    padding: 1rem;
+}
+.container > * {
+    margin: 1rem 0;
+    color: #C4C4C4;
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    font-family: "Noto Sans Mono", monospace;
+    margin: 0;
+    font-weight: 300;
+}
+.container a {
+    color: #72AEF5;
+    text-shadow: 0px 0px 20px #72AEF5;
+    text-decoration: none;
+    font-weight: 500;
+}
+.container a:hover {
+    text-decoration: underline;
+}
+
+.white {
+    color: white;
+    font-weight: 500;
+    text-shadow: 0px 0px 20px #FFFFFF;
+}
+.optionalLink {
+    color: #F27878 !important;
+    text-shadow: 0px 0px 20px #F27878 !important;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.accent {
+    color: #EDC575;
+    text-shadow: 0px 0px 20px #EDC575;
+}
