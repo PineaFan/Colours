@@ -1,6 +1,7 @@
-import fs from 'fs';
+const source = process.env.STATE === "DEV" ? "http://localhost:3000" : "https://colours.pinea.dev"
+const text = await ((await fetch(`${source}/rgb.txt`)).text());
 
-const rgbColourValues = fs.readFileSync("./public/rgb.txt", "utf-8").split("\n").filter(x => x.length).map((line) => {
+const rgbColourValues = text.split("\n").filter(x => x.length).map((line) => {
     const [rr, gr, br, ...name] = line.split(" ")
     const [r, g, b] = [parseInt(rr), parseInt(gr), parseInt(br)];
     const hex = (r << 16) + (g << 8) + b;
