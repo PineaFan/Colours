@@ -1,5 +1,6 @@
 .container {
     padding: 1rem;
+    overflow-y: hidden;
 }
 .container > * {
     margin: 1rem 0;

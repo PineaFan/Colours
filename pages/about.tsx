@@ -27,19 +27,14 @@ function Accent({ children }: { children: string }) {
     return <span className={Styles.accent}>{children}</span>
 }
 
-// Takes a hex code in, and the name as the child
 function Colour({ children, ...props }: { children: string, hex: string }) {
     return <a href={`/${props.hex}`} style={{color: `#${props.hex}`, textShadow: `0px 0px 20px #${props.hex}`}}>[{children} #{props.hex}]</a>
 }
 
 
 export default function Page() {
-    // The whole page will be a black background with white (and coloured) text
     return <div className={Styles.container}>
-        {/* <p className={Styles.white}>Pinea Colours</p> */}
         <TypedText delay={0} className={Styles.white} showCursor={true}>Pinea Colours</TypedText>
-        {/* <p>A site for viewing and converting colours</p>
-        <p>(By a British person, but "color" still works)</p> */}
         <TypedText delay={500}>A site for viewing and converting colours</TypedText>
         <TypedText delay={1000}>(By a British person, but "color" still works)</TypedText>
 
@@ -58,7 +53,7 @@ export default function Page() {
         <br />
 
         <p className={Styles.white}>About</p>
-        <p>This site was made by <a href="https://github.com/PineaFan">PineaFan</a>. <a className={Styles.optionalLink} href="https://www.buymeacoffee.com/PineappleFan">[Buy me a coffee]</a></p>
+        <p>This site was made by <a href="https://github.com/PineaFan">PineaFan</a>. Optionally, you can <a className={Styles.optionalLink} href="https://www.buymeacoffee.com/PineappleFan">buy me a coffee</a></p>
         <p>The whole site is <a href="https://github.com/PineaFan/colours">open source</a> and made using <a href="https://nextjs.org/">Next.js</a></p>
         <p>It's hosted on <a href="https://vercel.com/">Vercel</a></p>
 
