@@ -45,8 +45,8 @@ export default function Page() {
         <p><a href="/72AEF5">/72AEF5</a> Shows a preview of a hex code (if valid). Discord will (and other services may) show a preview in an embed when linked</p>
         <p><a href="/rgb/15890552">/rgb/15890552</a> Opens the colour viewer with a RGB integer</p>
         <p><a href="/rgb/242,120,120">/rgb/242,120,120</a> The same thing, but for comma separated R G and B values</p>
-        <p><a href="/hsv/0,50,95">/hsv/0,50,95</a> Opens the colour viewer with a HSV value</p>
-        <p><a href="/cmyk/0,50,50,5">/cmyk/0,50,50,5</a> Opens the colour viewer with a CMYK value</p>
+        <p><a href="/hsv/0,50.4,94.9">/hsv/0,50,95</a> Opens the colour viewer with a HSV value</p>
+        <p><a href="/cmyk/0,50.4,50.4,5">/cmyk/0,50,50,5</a> Opens the colour viewer with a CMYK value</p>
         <p><a href="/about">/about</a> Shows this page</p>
         <p>On all pages that aren't /about, you can click a converted value to copy it to your clipboard</p>
 
