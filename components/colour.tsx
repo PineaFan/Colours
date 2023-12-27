@@ -71,8 +71,13 @@ const calculateTextColor = (hex: string) => {
 }
 
 
-function AlternativeDisplay(props: {value: string, render: string, copyable: boolean, adaptiveText: React.CSSProperties}) {
-    const { reward, isAnimating } = useReward(`copied${props.value}`, "confetti", {
+function AlternativeDisplay(props: {
+    permanent: string,
+    variable: string,
+    copyable: boolean,
+    adaptiveText: React.CSSProperties
+}) {
+    const { reward, isAnimating } = useReward(`copied${props.variable}`, "confetti", {
         elementCount: 50,
         lifetime: 100,
         angle: 75,
@@ -81,16 +86,18 @@ function AlternativeDisplay(props: {value: string, render: string, copyable: boo
         colors: ["#F27878", "#E5AB71", "#E5DC71", "#E5DC71", "#78ECF2", "#6576CC", "#8D58B2"]
     });
     const copy = () => {
-        navigator.clipboard.writeText(props.value)
+        navigator.clipboard.writeText(props.variable)
         if (!isAnimating) reward()
     }
     // When hovering, add a box shadow in the text colour
-    return <div className={Styles.alternative} style={props.adaptiveText} id={`copied${props.value}`}
-        onMouseEnter={(e) => { e.currentTarget.style.opacity = props.copyable ? "0.5" : "1"}}
-        onMouseLeave={(e) => { e.currentTarget.style.opacity = "1"   }}
+    return <div className={Styles.alternative} style={props.adaptiveText} id={`copied${props.variable}`}
         onClick={props.copyable ? copy : undefined}
     >
-        {props.render}
+        <p>{props.permanent}: </p>
+        <p
+            onMouseEnter={(e) => { e.currentTarget.style.opacity = props.copyable ? "0.5" : "1"}}
+            onMouseLeave={(e) => { e.currentTarget.style.opacity = "1" }}
+        >{props.variable}</p>
     </div>
 }
 
@@ -132,6 +139,17 @@ export default function ColourPage(props: React.PropsWithChildren<{
     const textColour = calculateTextColor(colour)
     const adaptiveText = {color: textColour}
 
+    const alternatives = Object.keys(alternativeFormats).map((key) => {
+        const value = alternativeFormats[key as keyof typeof alternativeFormats]
+        const name = alternativeNames[key as keyof typeof alternativeNames]
+        return <AlternativeDisplay
+            key={key}
+            permanent={name}
+            variable={value}
+            copyable={true}
+            adaptiveText={adaptiveText} />
+    })
+
     return <div className={Styles.container}>
 
         <meta name="theme-color" content={"#" + colour} />
@@ -149,15 +167,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
                 aria-label='Colour input'
                 style={adaptiveText}
             />
-            <div className={Styles.alternatives}>
-                {
-                    Object.keys(alternativeFormats).map((key) => {
-                        const value = alternativeFormats[key as keyof typeof alternativeFormats]
-                        const name = alternativeNames[key as keyof typeof alternativeNames]
-                        return <AlternativeDisplay key={key} value={value} render={name + ": " + value} copyable={true} adaptiveText={adaptiveText} />
-                    })
-                }
-            </div>
+            <div className={Styles.alternatives}>{ alternatives }</div>
         </div>
         <div className={Styles.footer}>
             <a href="https://pinea.dev" className={Styles.footerIcon}><Image src="/pinea.svg" width={32} height={30} alt="" />PineaFan</a>

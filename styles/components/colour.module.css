@@ -35,22 +35,32 @@
     outline: none;
 }
 
-.alternative {
-    font-size: min(8vw, 20px);
-    cursor: pointer;
-    transition: opacity 0.1s ease-in-out, color 0.3s ease-in-out;
-    align-items: center;
-}
-
 .alternatives {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 80vw;
-    gap: 25px;
+    gap: 2rem;
     flex-wrap: wrap;
     font-weight: 500;
     line-height: min(8vw, 20px);
+}
+
+.alternative {
+    font-size: min(8vw, 20px);
+    cursor: pointer;
+    align-items: center;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-lines: 1;
+}
+
+.alternative > p, .alternative {
+    transition: opacity 0.25s ease-in-out, color 0.3s ease-in-out;
 }
 
 
