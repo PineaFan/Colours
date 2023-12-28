@@ -48,7 +48,7 @@ export default function Page() {
         <br />
 
         <p className={Styles.white}>About</p>
-        <p>This site was made by <a href="https://github.com/PineaFan">PineaFan</a>. Optionally, you can <a className={Styles.optionalLink} href="https://www.buymeacoffee.com/PineappleFan">buy me a coffee</a></p>
+        <p>This site was made by <a href="https://github.com/PineaFan">PineaFan</a>. Optionally, you can <a className={Styles.optionalLink} href="https://www.buymeacoffee.com/PineaFan">buy me a coffee</a></p>
         <p>The whole site is <a href="https://github.com/PineaFan/colours">open source</a> and made using <a href="https://nextjs.org/">Next.js</a></p>
         <p>It's hosted on <a href="https://vercel.com/">Vercel</a></p>
 
