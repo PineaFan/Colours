@@ -23,10 +23,6 @@ function TypedText({ children, ...props }: { children: string, typeSpeed?: numbe
     return <p className={props.className}>{text}{props.showCursor ? <span className={Styles.blink}>|</span> : null}</p>
 }
 
-function Accent({ children }: { children: string }) {
-    return <span className={Styles.accent}>{children}</span>
-}
-
 function Colour({ children, ...props }: { children: string, hex: string }) {
     return <a href={`/${props.hex}`} style={{color: `#${props.hex}`, textShadow: `0px 0px 20px #${props.hex}`}}>[{children} #{props.hex}]</a>
 }
@@ -47,7 +43,7 @@ export default function Page() {
         <p><a href="/rgb/242,120,120">/rgb/242,120,120</a> The same thing, but for comma separated R G and B values</p>
         <p><a href="/hsv/0,50.4,94.9">/hsv/0,50,95</a> Opens the colour viewer with a HSV value</p>
         <p><a href="/cmyk/0,50.4,50.4,5">/cmyk/0,50,50,5</a> Opens the colour viewer with a CMYK value</p>
-        <p>On all pages that aren't this page, you can click a converted value to copy it to your clipboard</p>
+        <p>On all colour pages, you can click a converted value to copy it to your clipboard</p>
 
         <br />
 
@@ -60,22 +56,22 @@ export default function Page() {
 
         <p className={Styles.white}>Colour Definitions</p>
         <p>Hex codes</p>
-        <p> - 1 Character <Accent>(#A)</Accent>: Repeat 6 times <Accent>(#AAAAA)</Accent></p>
-        <p> - 2 Characters <Accent>(#AB)</Accent>: Use for R, G and B <Accent>(#ABABAB)</Accent></p>
-        <p> - 3 Characters <Accent>(#ABC)</Accent>: Use for Repeat each character twice <Accent>(#AABBCC)</Accent></p>
-        <p> - 4 Characters <Accent>(#ABCD)</Accent>: Pad with 0s <Accent>(#ABCD00)</Accent></p>
-        <p> - 5 Characters <Accent>(#ABCDE)</Accent>: Pad with 0s <Accent>(#ABCDE0)</Accent></p>
-        <p> - 6 Characters <Accent>(#ABCDEF)</Accent>: Use as is <Accent>(#ABCDEF)</Accent></p>
+        <p> - 1 Character <i>(#A)</i>: Repeat 6 times <i>(#AAAAA)</i></p>
+        <p> - 2 Characters <i>(#AB)</i>: Use for R, G and B <i>(#ABABAB)</i></p>
+        <p> - 3 Characters <i>(#ABC)</i>: Use for Repeat each character twice <i>(#AABBCC)</i></p>
+        <p> - 4 Characters <i>(#ABCD)</i>: Pad with 0s <i>(#ABCD00)</i></p>
+        <p> - 5 Characters <i>(#ABCDE)</i>: Pad with 0s <i>(#ABCDE0)</i></p>
+        <p> - 6 Characters <i>(#ABCDEF)</i>: Use as is <i>(#ABCDEF)</i></p>
         <br />
         <p>RGB</p>
-        <p> - Integer: A single, non-padded number from 0 to 16777215 <Accent>(0xFFFFFF)</Accent></p>
-        <p> - Comma separated: 3 comma separated numbers from 0 to 255 <Accent>(0,255,255)</Accent></p>
+        <p> - Integer: A single, non-padded number from 0 to 16777215 <i>(0xFFFFFF)</i></p>
+        <p> - Comma separated: 3 comma separated numbers from 0 to 255 <i>(0,255,255)</i></p>
         <br />
         <p>HSV</p>
-        <p> - Comma separated: 3 comma separated numbers from 0 to 100 <Accent>(0,100,100)</Accent></p>
+        <p> - Comma separated: 3 comma separated numbers from 0 to 100 <i>(0,100,100)</i></p>
         <br />
         <p>CMYK</p>
-        <p> - Comma separated: 4 comma separated numbers from 0 to 100 <Accent>(0,100,100,100)</Accent></p>
+        <p> - Comma separated: 4 comma separated numbers from 0 to 100 <i>(0,100,100,100)</i></p>
 
         <br />
 
