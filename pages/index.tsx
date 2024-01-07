@@ -39,6 +39,7 @@ export default function Page() {
         <p className={Styles.white}>Usage</p>
         <p><a href="/">/</a> Shows this page</p>
         <p><a href="/72AEF5">/72AEF5</a> Shows a preview of a hex code (if valid). Discord will (and other services may) show a preview in an embed when linked</p>
+        <p><a href="/72AEF5-F27878">/72AEF5-F27878</a> Compares 2 hex codes against each other. Embeds will be based on first colour</p>
         <p><a href="/rgb/15890552">/rgb/15890552</a> Opens the colour viewer with a RGB integer</p>
         <p><a href="/rgb/242,120,120">/rgb/242,120,120</a> The same thing, but for comma separated R G and B values</p>
         <p><a href="/hsv/0,50.4,94.9">/hsv/0,50,95</a> Opens the colour viewer with a HSV value</p>
