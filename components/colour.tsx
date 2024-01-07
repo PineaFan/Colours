@@ -128,6 +128,15 @@ export default function ColourPage(props: React.PropsWithChildren<{
     const [typedColour, setTypedColour] = React.useState(colour)
     const [compareTypedColour, setCompareTypedColour] = React.useState(compareColour)
 
+    const [titleSet, setTitleSet] = React.useState(false)
+
+    const updateTitleAndURL = (colour: string, compareColour: string | undefined) => {
+        // Update the URL
+        window.history.replaceState({}, "", `/${colour}` + (compareColour ? `-${compareColour}` : ""))
+        // Set the window title
+        window.document.title = `#${colour}` + (compareColour ? ` against #${compareColour}` : "") + " - Pinea Colours"
+    }
+
     const updateColour = (newValue: string, comparing: boolean = false) => {
         // Remove the leading #, if there is one
         newValue = newValue.replace(/^#/, "")
@@ -144,19 +153,17 @@ export default function ColourPage(props: React.PropsWithChildren<{
             setColour(validated)
         }
         // Update the URL (States have not propagated yet, so we need to use the values passed in)
-        if (!comparing) {
-            window.history.replaceState({}, "", `/${validated}` + (compare ? `-${compareColour}` : ""))
-        } else {
-            window.history.replaceState({}, "", `/${colour}-${validated}`)
-        }
-        // Set the window title
-        window.document.title = `#${validated} - Pinea Colours`
+        if (!comparing) { updateTitleAndURL(validated, compare ? compareColour : undefined)
+        } else { updateTitleAndURL(colour, validated) }
     }
     useEffect(() => {
         // On load, update the URL
         window.history.replaceState({}, "", `/${colour}` + (compare ? `-${compareColour}` : ""))
         // Set the window title
-        window.document.title = `#${colour} - Pinea Colours`
+        if (!titleSet) {
+            updateTitleAndURL(colour, compareColour)
+            setTitleSet(true)
+        }
     }, [colour])
     const textColour = calculateTextColor(colour)
     const adaptiveText = {color: textColour}
