@@ -108,42 +108,60 @@ export { validFormats }
 
 export default function ColourPage(props: React.PropsWithChildren<{
     // Let the page use its own state for the colour
-    currentColour?: string
-    setCurrentColour?: (colour: string) => void,
+    currentColour?: string,
+    currentCompareColour?: string,
     primaryFormat?: keyof typeof alternativeNames | "hex"
 }>) {
     const toSet = toValidColour(props.currentColour || "F27878")
     let colour: string, setColour: (colour: string) => void;
-    if (props.setCurrentColour) {
-        [colour, setColour] = [props.currentColour || toSet, props.setCurrentColour]
-    } else {
-        [colour, setColour] = React.useState(toSet)
-    }
-    const [alternativeFormats, setAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
-    const [typedColour, setTypedColour] = React.useState(colour)
+    [colour, setColour] = React.useState(toSet);
 
-    const updateColour = (newValue: string) => {
+    const compareToSet = toValidColour(props.currentCompareColour || toSet)
+    let compareColour: string, setCompareColour: (colour: string) => void;
+    [compareColour, setCompareColour] = React.useState(compareToSet);
+
+    const [compare, setCompare] = React.useState(props.currentCompareColour !== undefined)
+
+    const [alternativeFormats, setAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
+    const [compareAlternativeFormats, setCompareAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
+
+    const [typedColour, setTypedColour] = React.useState(colour)
+    const [compareTypedColour, setCompareTypedColour] = React.useState(compareColour)
+
+    const updateColour = (newValue: string, comparing: boolean = false) => {
         // Remove the leading #, if there is one
         newValue = newValue.replace(/^#/, "")
         newValue = removeInvalidCharacters(newValue).substring(0, 6)
         const validated = toValidColour(newValue)
         // Just get the last 6 characters
-        setTypedColour(newValue)
-        setColour(validated)
-        setAlternativeFormats(hexToAlternativeFormats(validated))
-        // Update the URL
-        window.history.replaceState({}, "", `/${validated}`)
+        if (comparing) {
+            setCompareTypedColour(newValue)
+            setCompareAlternativeFormats(hexToAlternativeFormats(validated))
+            setCompareColour(validated)
+        } else {
+            setTypedColour(newValue)
+            setAlternativeFormats(hexToAlternativeFormats(validated))
+            setColour(validated)
+        }
+        // Update the URL (States have not propagated yet, so we need to use the values passed in)
+        if (!comparing) {
+            window.history.replaceState({}, "", `/${validated}` + (compare ? `-${compareColour}` : ""))
+        } else {
+            window.history.replaceState({}, "", `/${colour}-${validated}`)
+        }
         // Set the window title
         window.document.title = `#${validated} - Pinea Colours`
     }
     useEffect(() => {
         // On load, update the URL
-        window.history.replaceState({}, "", `/${colour}`)
+        window.history.replaceState({}, "", `/${colour}` + (compare ? `-${compareColour}` : ""))
         // Set the window title
         window.document.title = `#${colour} - Pinea Colours`
     }, [colour])
     const textColour = calculateTextColor(colour)
     const adaptiveText = {color: textColour}
+    const compareTextColour = calculateTextColor(compareColour)
+    const compareAdaptiveText = {color: compareTextColour}
 
     const alternatives = Object.keys(alternativeFormats).map((key) => {
         const value = alternativeFormats[key as keyof typeof alternativeFormats]
@@ -155,14 +173,24 @@ export default function ColourPage(props: React.PropsWithChildren<{
             copyable={true}
             adaptiveText={adaptiveText} />
     })
+    const compareAlternatives = Object.keys(compareAlternativeFormats).map((key) => {
+        const value = compareAlternativeFormats[key as keyof typeof compareAlternativeFormats]
+        const name = alternativeNames[key as keyof typeof alternativeNames]
+        return <AlternativeDisplay
+            key={key}
+            permanent={name}
+            variable={value}
+            copyable={true}
+            adaptiveText={compareAdaptiveText} />
+    }
+    )
 
     return <div className={Styles.container}>
 
         <meta name="theme-color" content={"#" + colour} />
         <meta name="description" content={`#${colour} | RGB: ${alternativeFormats.rgb}`} />
 
-        <div className={Styles.colour} style={{backgroundColor: "#" + colour}}>
-
+        <div className={Styles.colour} style={{backgroundColor: "#" + colour, height: compare ? "50vh" : "100vh"}}>
             <input
                 className={Styles.inputObject}
                 type="text"
@@ -175,9 +203,23 @@ export default function ColourPage(props: React.PropsWithChildren<{
             />
             <div className={Styles.alternatives}>{ alternatives }</div>
         </div>
+        <div className={Styles.colour} style={{backgroundColor: "#" + compareColour, height: "100vh"}}>
+            <input
+                className={Styles.inputObject}
+                type="text"
+                value={"#" + compareTypedColour}
+                onChange={(e) => updateColour(e.target.value, true)}
+                maxLength={7}
+                spellCheck={false}
+                aria-label='Compare input'
+                style={compareAdaptiveText}
+            />
+            <div className={Styles.alternatives}>{ compareAlternatives }</div>
+        </div>
         <div className={Styles.footer}>
-            <a href="https://pinea.dev" className={Styles.footerIcon}><Image src="/pinea.svg" width={32} height={30} alt="" />PineaFan</a>
+            <button className={Styles.footerIcon} onClick={() => setCompare(!compare)}>{compare ? "Hide" : "Show"} Compare</button>
             <a href="/" className={Styles.footerIcon}>About</a>
+            <a href="https://pinea.dev" className={Styles.footerIcon}><Image src="/pinea.svg" width={32} height={30} alt="" />PineaFan</a>
         </div>
     </div>
 }
