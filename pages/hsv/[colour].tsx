@@ -13,7 +13,6 @@ export default function Page({ colour }: { colour: string }) {
 }
 
 const hsvToHex = (hsv: number[]) => {
-    console.log(hsv)
     const h = hsv[0] / 60
     const s = hsv[1] / 100
     const v = hsv[2] / 100
@@ -29,12 +28,14 @@ const hsvToHex = (hsv: number[]) => {
 }
 
 export async function getServerSideProps(context: { query: { colour?: string, color?: string } }) {
-    const colour = context.query.colour ?? context.query.color ?? "0,50.4,94.9";
+    let colour = context.query.colour ?? context.query.color ?? "0,50.4,94.9";
+    // Undo url encoding on value
+    colour = decodeURIComponent(colour)
     // Always return a hex colour
     const commaList = colour.split(",")
     if (commaList.length === 3) {
         // It's a HSV tuple
-        const hsv = commaList.map((value) => Math.min(Math.max(parseFloat(value), 0), 100))
+        const hsv = commaList.map((value) => Math.min(Math.max(parseFloat(value), 0), 100) || 0)
         return {
             props: {
                 colour: hsvToHex(hsv)

@@ -22,12 +22,13 @@ const cmykToHex = (cmyk: number[]) => {
 }
 
 export async function getServerSideProps(context: { query: { colour?: string, color?: string } }) {
-    const colour = context.query.colour ?? context.query.color ?? "0,50.4,50.4,5";
+    let colour = context.query.colour ?? context.query.color ?? "0,50.4,50.4,5";
+    colour = decodeURIComponent(colour)
     // Always return a hex colour
     const commaList = colour.split(",")
     if (commaList.length === 4) {
         // It's a CMYK tuple
-        const cmyk = commaList.map((value) => Math.min(Math.max(parseFloat(value), 0), 100))
+        const cmyk = commaList.map((value) => Math.min(Math.max(parseFloat(value), 0), 100) | 0)
         return {
             props: {
                 colour: cmykToHex(cmyk)

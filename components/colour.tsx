@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Styles from '../styles/components/colour.module.css';
 import { useReward } from "react-rewards";
 import Image from 'next/image';
@@ -132,10 +132,16 @@ export default function ColourPage(props: React.PropsWithChildren<{
         setColour(validated)
         setAlternativeFormats(hexToAlternativeFormats(validated))
         // Update the URL
-        window.history.replaceState({}, "", `${validated}`)
+        window.history.replaceState({}, "", `/${validated}`)
         // Set the window title
         window.document.title = `#${validated} - Pinea Colours`
     }
+    useEffect(() => {
+        // On load, update the URL
+        window.history.replaceState({}, "", `/${colour}`)
+        // Set the window title
+        window.document.title = `#${colour} - Pinea Colours`
+    }, [colour])
     const textColour = calculateTextColor(colour)
     const adaptiveText = {color: textColour}
 

@@ -20,11 +20,10 @@ const rgbToHex = (rgb: number[]) => {
 }
 
 export async function getServerSideProps(context: { query: { colour?: string, color?: string } }) {
-    const colour = context.query.colour ?? context.query.color ?? "15890552";
+    let colour = context.query.colour ?? context.query.color ?? "15890552";
+    colour = decodeURIComponent(colour)
     // Colour could be in the format of an RGB int, a rgb tuple "255,255,255", or could be invalid entirely
     // First, check if there are any commas
-
-    // Always return a hex colour
     const commaList = colour.split(",")
     if (commaList.length === 3) {
         // It's a rgb tuple
