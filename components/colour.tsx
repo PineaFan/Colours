@@ -158,7 +158,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
     }
     useEffect(() => {
         // On load, update the URL
-        window.history.replaceState({}, "", `/${colour}` + (compare ? `-${compareColour}` : ""))
+        window.history.replaceState({}, "", `/${colour}` + (props.currentCompareColour ? `-${compareColour}` : ""))
         // Set the window title
         if (!titleSet) {
             updateTitleAndURL(colour, compareColour)
