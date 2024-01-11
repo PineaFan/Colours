@@ -2,10 +2,12 @@ import { AppProps } from 'next/app'
 import '../styles/globals.css';
 import Head from 'next/head';
 import { Helmet } from 'react-helmet';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
 export default function App({ Component, pageProps }: AppProps) {
     return <div className='main'>
+        <SpeedInsights/>
         <Helmet htmlAttributes={{ lang: "en" }} />
         <Head>
             <title>Pinea Colours</title>
