@@ -72,12 +72,13 @@ const calculateTextColor = (hex: string) => {
 
 
 function AlternativeDisplay(props: {
+    key: number,
     permanent: string,
     variable: string,
     copyable: boolean,
     adaptiveText: React.CSSProperties
 }) {
-    const { reward, isAnimating } = useReward(`copied${props.variable}`, "confetti", {
+    const { reward, isAnimating } = useReward(`copied${props.variable}{props.key}`, "confetti", {
         elementCount: 50,
         lifetime: 100,
         angle: 75,
@@ -90,7 +91,7 @@ function AlternativeDisplay(props: {
         if (!isAnimating) reward()
     }
     // When hovering, add a box shadow in the text colour
-    return <div className={Styles.alternative} style={props.adaptiveText} id={`copied${props.variable}`}
+    return <div className={Styles.alternative} style={props.adaptiveText} id={`copied${props.variable}{props.key}`}
         onClick={props.copyable ? copy : undefined}
     >
         <b>{props.permanent}: </b>
