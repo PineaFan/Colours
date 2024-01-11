@@ -93,7 +93,7 @@ function AlternativeDisplay(props: {
     return <div className={Styles.alternative} style={props.adaptiveText} id={`copied${props.variable}`}
         onClick={props.copyable ? copy : undefined}
     >
-        <p>{props.permanent}: </p>
+        <b>{props.permanent}: </b>
         <p
             onMouseEnter={(e) => { e.currentTarget.style.opacity = props.copyable ? "0.5" : "1"}}
             onMouseLeave={(e) => { e.currentTarget.style.opacity = "1" }}

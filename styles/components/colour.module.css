@@ -60,8 +60,11 @@
     max-lines: 1;
 }
 
-.alternative > p, .alternative {
+.alternative > p, .alternative > b, .alternative {
     transition: opacity 0.25s ease-in-out, color 0.3s ease-in-out;
+}
+.alternative > b {
+    font-weight: 700;
 }
 
 
