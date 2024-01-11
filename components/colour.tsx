@@ -72,7 +72,7 @@ const calculateTextColor = (hex: string) => {
 
 
 function AlternativeDisplay(props: {
-    key: number,
+    key: string,
     permanent: string,
     variable: string,
     copyable: boolean,
