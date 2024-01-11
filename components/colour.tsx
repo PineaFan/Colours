@@ -132,9 +132,9 @@ export default function ColourPage(props: React.PropsWithChildren<{
 
     const updateTitleAndURL = (colour: string, compareColour: string | undefined) => {
         // Update the URL
-        window.history.replaceState({}, "", `/${colour}` + (compareColour ? `-${compareColour}` : ""))
+        window.history.replaceState({}, "", `/${colour}` + ((compareColour && compare) ? `-${compareColour}` : ""))
         // Set the window title
-        window.document.title = `#${colour}` + (compareColour ? ` against #${compareColour}` : "") + " - Pinea Colours"
+        window.document.title = `#${colour}` + ((compareColour && compare) ? ` against #${compareColour}` : "") + " - Pinea Colours"
     }
 
     const updateColour = (newValue: string, comparing: boolean = false) => {
@@ -158,10 +158,10 @@ export default function ColourPage(props: React.PropsWithChildren<{
     }
     useEffect(() => {
         // On load, update the URL
-        window.history.replaceState({}, "", `/${colour}` + (props.currentCompareColour ? `-${compareColour}` : ""))
+        window.history.replaceState({}, "", `/${colour}` + ((props.currentCompareColour && compare) ? `-${compareColour}` : ""))
         // Set the window title
         if (!titleSet) {
-            updateTitleAndURL(colour, compareColour)
+            updateTitleAndURL(colour, compare ? compareColour : undefined)
             setTitleSet(true)
         }
     }, [colour])
