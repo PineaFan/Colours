@@ -90,7 +90,7 @@ export default function Page() {
         <Colour hex="E5AB71">Orange</Colour>
         <Colour hex="F2D478">Yellow</Colour>
         <Colour hex="65CC76">Green</Colour>
-        <Colour hex="71AFE5">Cyan</Colour>
+        <Colour hex="72AFE5">Cyan</Colour>
         <Colour hex="6576CC">Blue</Colour>
         <Colour hex="8D58B2">Purple</Colour>
 
