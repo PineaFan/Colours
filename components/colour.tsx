@@ -114,6 +114,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
     primaryFormat?: keyof typeof alternativeNames | "hex"
 }>) {
     const toSet = toValidColour(props.currentColour || "F27878")
+    const compareToSet = toValidColour(props.currentCompareColour || "72AEF5")
     let colour: string, setColour: (colour: string) => void;
     [colour, setColour] = React.useState(toSet);
 
@@ -124,7 +125,7 @@ export default function ColourPage(props: React.PropsWithChildren<{
     const [compare, setCompare] = React.useState(props.currentCompareColour !== undefined)
 
     const [alternativeFormats, setAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
-    const [compareAlternativeFormats, setCompareAlternativeFormats] = React.useState(hexToAlternativeFormats(toSet))
+    const [compareAlternativeFormats, setCompareAlternativeFormats] = React.useState(hexToAlternativeFormats(compareToSet))
 
     const [typedColour, setTypedColour] = React.useState(colour)
     const [compareTypedColour, setCompareTypedColour] = React.useState(compareColour)
